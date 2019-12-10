@@ -1,21 +1,46 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
 
-	"github.com/everystreet/go-proj/cproj"
+	"github.com/everystreet/go-proj/proj"
 )
 
 func main() {
-	fmt.Println("test ll safestrings")
-	//spew.Dump(bindings.Info())
+	for {
+		r := bufio.NewReader(os.Stdin)
+		str, _ := r.ReadString('\n')
+		if str == "" {
+			return
+		}
 
-	ctx := cproj.Context_create()
-	fmt.Println(cproj.Context_get_database_path(ctx))
+		fields := strings.Fields(str)
 
-	fmt.Println(cproj.Create(ctx, "proj=latlong"))
+		getFloat := func(i int) float64 {
+			if len(fields) <= i {
+				return 0
+			}
 
-	//fmt.Println(bindings.Context_set_database_path(nil, "/usr/local/share/proj/proj.db", nil, nil))
-	//bindings.Create_crs_to_crs(nil, "EPSG:25832", "EPSG:25833", nil)
-	fmt.Println("done")
+			f, err := strconv.ParseFloat(fields[i], 10)
+			if err != nil {
+				os.Exit(1)
+			}
+			return f
+		}
+
+		coord := proj.XYZ{
+			X: getFloat(0),
+			Y: getFloat(1),
+			Z: getFloat(2),
+		}
+
+		proj.CRSToCRS("EPSG:4326", "EPSG:32632",
+			proj.TransformForward(coord, &coord))
+
+		fmt.Printf("%.2f\t%.2f\t%.2f\n", coord.X, coord.Y, coord.Z)
+	}
 }

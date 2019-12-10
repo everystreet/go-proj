@@ -52,10 +52,14 @@ TRANSLATOR:
       - {transform: export}
   PtrTips:
     function:
+      - {target: "^proj_context_destroy$", tips: [sref]}
       - {target: "^proj_context_get_database_path$", tips: [sref]}
       - {target: "^proj_context_set_database_path$", tips: [sref, arr, 0, 0]}
       - {target: "^proj_create$", tips: [sref, 0]}
       - {target: "^proj_create_crs_to_crs$", tips: [sref, 0, 0, sref]}
+      - {target: "^proj_destroy$", tips: [sref]}
+      - {target: "^proj_normalize_for_visualization$", tips: [sref, sref]}
+      - {target: "^proj_trans$", tips: [sref, 0, 0]}
   MemTips:
     - {target: "^PJ_OPERATIONS$", self: raw}
     - {target: "^PJ_INFO$", self: raw}
