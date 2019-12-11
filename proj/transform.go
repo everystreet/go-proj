@@ -21,29 +21,26 @@ func CRSToCRS(source, target string, ts ...Transformation) {
 	}
 }
 
-type SourceCoordinate interface {
+type Coordinate interface {
 	PutCoordinate(*cproj.PJ_COORD)
-}
-
-type DestinationCoordinate interface {
 	FromCoordinate(cproj.PJ_COORD)
 }
 
-func TransformForward(coord SourceCoordinate, dest DestinationCoordinate) Transformation {
-	return transform(coord, forward, dest)
+func TransformForward(coord Coordinate) Transformation {
+	return transform(forward, coord)
 }
 
-func TransformInverse(coord SourceCoordinate, dest DestinationCoordinate) Transformation {
-	return transform(coord, inverse, dest)
+func TransformInverse(coord Coordinate) Transformation {
+	return transform(inverse, coord)
 }
 
-func transform(coord SourceCoordinate, direction cproj.PJ_DIRECTION, dest DestinationCoordinate) Transformation {
+func transform(direction cproj.PJ_DIRECTION, coord Coordinate) Transformation {
 	return func(pj *cproj.PJ) {
 		var in cproj.PJ_COORD
 		coord.PutCoordinate(&in)
 
 		out := cproj.Trans(pj, direction, in)
-		dest.FromCoordinate(out)
+		coord.FromCoordinate(out)
 	}
 }
 
