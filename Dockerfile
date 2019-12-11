@@ -39,4 +39,5 @@ WORKDIR /build
 
 ENTRYPOINT rm -rf cproj \
     && c-for-go proj.yml \
-    && chmod 0444 cproj/*
+    && chmod 0444 cproj/* \
+    && LD_LIBRARY_PATH="/usr/local/lib" go test github.com/everystreet/go-proj/proj -count 1 -v
