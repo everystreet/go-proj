@@ -11,6 +11,22 @@ import (
 )
 
 func main() {
+	var source, target string
+	to := false
+	for _, arg := range os.Args[1:] {
+		switch {
+		case arg == "+to":
+			to = true
+		case to:
+			target += " " + arg
+		default:
+			source += " " + arg
+		}
+	}
+
+	source = strings.TrimSpace(source)
+	target = strings.TrimSpace(target)
+
 	for {
 		r := bufio.NewReader(os.Stdin)
 		str, _ := r.ReadString('\n')
@@ -38,9 +54,7 @@ func main() {
 			Z: getFloat(2),
 		}
 
-		proj.CRSToCRS("EPSG:4326", "EPSG:32632",
-			proj.TransformForward(coord, &coord))
-
+		proj.CRSToCRS(source, target, proj.TransformForward(&coord))
 		fmt.Printf("%.2f\t%.2f\t%.2f\n", coord.X, coord.Y, coord.Z)
 	}
 }
