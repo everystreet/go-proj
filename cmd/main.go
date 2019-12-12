@@ -54,7 +54,10 @@ func main() {
 			Z: getFloat(2),
 		}
 
-		proj.CRSToCRS(source, target, proj.TransformForward(&coord))
+		if err := proj.CRSToCRS(source, target, proj.TransformForward(&coord)); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
 		fmt.Printf("%.2f\t%.2f\t%.2f\n", coord.X, coord.Y, coord.Z)
 	}
 }
