@@ -6,13 +6,27 @@ import (
 	"github.com/everystreet/go-proj/cproj"
 )
 
+// Transformation functions are passed to CRSToCRS.
 type Transformation func(*cproj.PJ)
 
-func CRSToCRS(source, target string, ts ...Transformation) error {
+// CRSToCRS facilitates transformations between two coordinate reference systems.
+func CRSToCRS(source, target CRS, ts ...Transformation) error {
 	ctx := cproj.Context_create()
 	defer cproj.Context_destroy(ctx)
 
-	pj := cproj.Create_crs_to_crs(ctx, source, target, nil)
+	src, err := source.instantiate(ctx)
+	if err != nil {
+		return fmt.Errorf("invalid source '%v': %w", source, err)
+	}
+	defer cproj.Destroy(src)
+
+	dst, err := target.instantiate(ctx)
+	if err != nil {
+		return fmt.Errorf("invalud target '%v': %w", target, err)
+	}
+	defer cproj.Destroy(dst)
+
+	pj := cproj.Create_crs_to_crs_from_pj(ctx, src, dst, nil, nil)
 	if pj == nil {
 		return fmt.Errorf("invalid source or target CRS")
 	}
@@ -30,15 +44,18 @@ func CRSToCRS(source, target string, ts ...Transformation) error {
 	return nil
 }
 
+// Coordinate wraps functions that allow communication with the cproj package.
 type Coordinate interface {
 	PutCoordinate(*cproj.PJ_COORD)
 	FromCoordinate(cproj.PJ_COORD)
 }
 
+// TransformForward performs a forward transformation of the supplied coordinate.
 func TransformForward(coord Coordinate) Transformation {
 	return transform(forward, coord)
 }
 
+// TransformInverse performs an inverse transformation of the supplied coordinate.
 func TransformInverse(coord Coordinate) Transformation {
 	return transform(inverse, coord)
 }
