@@ -27,6 +27,7 @@ TRANSLATOR:
       - {action: accept, from: "^proj_create$"}
       - {action: accept, from: "^proj_create_crs_to_crs_from_pj$"}
       - {action: accept, from: "^proj_destroy$"}
+      - {action: accept, from: "^proj_get_area_of_use$"}
       - {action: accept, from: "^proj_normalize_for_visualization$"}
       - {action: accept, from: "^proj_trans$"}
       - {action: replace, from: "^proj_"}
@@ -37,5 +38,6 @@ TRANSLATOR:
       - {target: "^proj_create$", tips: [sref, 0]}
       - {target: "^proj_create_crs_to_crs_from_pj$", tips: [sref, sref, sref, sref, 0]}
       - {target: "^proj_destroy$", tips: [sref]}
+      - {target: "^proj_get_area_of_use$", tips: [sref, sref, sref, sref, sref, sref, 0]}
       - {target: "^proj_normalize_for_visualization$", tips: [sref, sref]}
       - {target: "^proj_trans$", tips: [sref, 0, 0]}
