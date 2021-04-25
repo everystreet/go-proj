@@ -6,21 +6,21 @@ import (
 	"github.com/everystreet/go-proj/cproj"
 )
 
-// Transformation functions are passed to CRSToCRS.
-type Transformation func(*cproj.PJ)
+// Projection context.
+type Projection *cproj.PJ
 
 // CRSToCRS facilitates transformations between two coordinate reference systems.
-func CRSToCRS(source, target CRS, ts ...Transformation) error {
+func CRSToCRS(source, target string, transform func(Projection)) error {
 	ctx := cproj.Context_create()
 	defer cproj.Context_destroy(ctx)
 
-	src, err := source.instantiate(ctx)
+	src, err := CRS(source).instantiate(ctx)
 	if err != nil {
 		return fmt.Errorf("invalid source '%v': %w", source, err)
 	}
 	defer cproj.Destroy(src)
 
-	dst, err := target.instantiate(ctx)
+	dst, err := CRS(target).instantiate(ctx)
 	if err != nil {
 		return fmt.Errorf("invalud target '%v': %w", target, err)
 	}
@@ -38,9 +38,7 @@ func CRSToCRS(source, target CRS, ts ...Transformation) error {
 	}
 	defer cproj.Destroy(normalized)
 
-	for _, t := range ts {
-		t(normalized)
-	}
+	transform(normalized)
 	return nil
 }
 
@@ -51,26 +49,24 @@ type Coordinate interface {
 }
 
 // TransformForward performs a forward transformation of the supplied coordinate.
-func TransformForward(coord Coordinate) Transformation {
-	return transform(forward, coord)
+func TransformForward(pj Projection, coord Coordinate) {
+	transform(pj, forward, coord)
 }
 
 // TransformInverse performs an inverse transformation of the supplied coordinate.
-func TransformInverse(coord Coordinate) Transformation {
-	return transform(inverse, coord)
-}
-
-func transform(direction cproj.PJ_DIRECTION, coord Coordinate) Transformation {
-	return func(pj *cproj.PJ) {
-		var in cproj.PJ_COORD
-		coord.PutCoordinate(&in)
-
-		out := cproj.Trans(pj, direction, in)
-		coord.FromCoordinate(out)
-	}
+func TransformInverse(pj Projection, coord Coordinate) {
+	transform(pj, inverse, coord)
 }
 
 const (
 	forward cproj.PJ_DIRECTION = 1
 	inverse cproj.PJ_DIRECTION = -1
 )
+
+func transform(pj *cproj.PJ, direction cproj.PJ_DIRECTION, coord Coordinate) {
+	var in cproj.PJ_COORD
+	coord.PutCoordinate(&in)
+
+	out := cproj.Trans(pj, direction, in)
+	coord.FromCoordinate(out)
+}

@@ -13,7 +13,10 @@ func ExampleCRSToCRS() {
 		Z: 10,
 	}
 
-	if err := proj.CRSToCRS(proj.CRS("+proj=latlong"), proj.CRS("EPSG:3857"), proj.TransformForward(&coord)); err != nil {
+	if err := proj.CRSToCRS("+proj=latlong", "EPSG:3857", func(pj proj.Projection) {
+		proj.TransformForward(pj, &coord)
+		// transform more coordinates
+	}); err != nil {
 		panic(err)
 	}
 
