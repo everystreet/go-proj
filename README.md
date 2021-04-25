@@ -53,7 +53,7 @@ $ echo 2 49 | cs2cs +proj=latlong +to EPSG:3857
 For demonstration purposes, this repository also contains a simplified `cs2cs` program that can be run like so:
 
 ```bash
-$ echo 2 49 | go run cmd/main.go +proj=latlong +to EPSG:3857
+$ echo 2 49 | go run cmd/proj/main.go +proj=latlong +to EPSG:3857
 # 222638.98 6274861.39 0.00
 ```
 

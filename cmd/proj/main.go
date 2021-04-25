@@ -54,7 +54,9 @@ func main() {
 			Z: getFloat(2),
 		}
 
-		if err := proj.CRSToCRS(proj.CRS(source), proj.CRS(target), proj.TransformForward(&coord)); err != nil {
+		if err := proj.CRSToCRS(source, target, func(pj proj.Projection) {
+			proj.TransformForward(pj, &coord)
+		}); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
