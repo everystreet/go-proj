@@ -15,13 +15,13 @@ proj --version
 Then `go-proj` can be added to your Go module as usual:
 
 ```bash
-go get -u github.com/everystreet/go-proj
+go get -u github.com/everystreet/go-proj/v6
 ```
 
 `go-proj` consists of two packages - `cproj` contains raw Go bindings to the PROJ library, and `proj` consists of a more idiomatic Go wrapper that doesn't require manual memory deallocation. The latter package, `proj` should be used where possible by adding the following `import` line:
 
 ```go
-import "github.com/everystreet/go-proj/proj"
+import "github.com/everystreet/go-proj/v6/proj"
 ```
 
 ## Examples

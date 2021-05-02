@@ -3,7 +3,7 @@ package proj_test
 import (
 	"fmt"
 
-	"github.com/everystreet/go-proj/proj"
+	"github.com/everystreet/go-proj/v6/proj"
 )
 
 func ExampleCRSToCRS() {

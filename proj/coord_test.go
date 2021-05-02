@@ -3,8 +3,8 @@ package proj_test
 import (
 	"testing"
 
-	"github.com/everystreet/go-proj/cproj"
-	"github.com/everystreet/go-proj/proj"
+	"github.com/everystreet/go-proj/v6/cproj"
+	"github.com/everystreet/go-proj/v6/proj"
 	"github.com/stretchr/testify/require"
 )
 
