@@ -26,9 +26,3 @@ RUN mkdir -p /usr/local/share/proj; \
 
 RUN cd PROJ \
     && make check
-
-WORKDIR /build
-
-ENTRYPOINT rm -rf cproj \
-    && go run -mod=vendor github.com/xlab/c-for-go -ccincl proj/proj.yaml \
-    && chmod 0444 cproj/*
