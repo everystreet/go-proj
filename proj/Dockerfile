@@ -30,5 +30,5 @@ RUN cd PROJ \
 WORKDIR /build
 
 ENTRYPOINT rm -rf cproj \
-    && go run -mod=vendor github.com/xlab/c-for-go -ccincl proj.yml \
+    && go run -mod=vendor github.com/xlab/c-for-go -ccincl proj/proj.yaml \
     && chmod 0444 cproj/*
