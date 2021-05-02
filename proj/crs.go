@@ -37,6 +37,12 @@ func (c CRS) Area() (*Area, bool, error) {
 	}, true, nil
 }
 
+// Area of use for a particular CRS.
+type Area struct {
+	BottomLeft s2.LatLng
+	TopRight   s2.LatLng
+}
+
 // String returns the lower-cased CRS definition.
 // If the definition is a proj-string, the "+type=crs" option if appended if not present.
 func (c CRS) String() string {
