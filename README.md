@@ -2,6 +2,12 @@
 
 Go bindings for PROJ (formerly PROJ.4) - a library for performing conversions between cartographic projections, maintained by the OSGeo organization. See https://proj.org for more information.
 
+##  Versioning
+
+This project, as Go module, follows semantic versioning. This means that backward-incompatible changes will not be made without a major version upgrade.
+
+This project is also versioned to match the target PROJ version. This means that `v6.*.*` of `go-proj` (the current latest version) targets version `6.*.*` of PROJ. If your project needs to use a different version of PROJ, first check the [releases page](https://github.com/everystreet/go-proj/releases) to see if a previous release of `go-proj` targets that version. Alternatively, you may find that a particular version of `go-proj` works with a non-targeted version of PROJ; for example `v6.*.*` of `go-proj` should still work fine with version `7.0.0` of PROJ.
+
 ## Usage
 
 `go-proj` uses Cgo to wrap the PROJ library with a Go interface. As such, in order to use this package, you must first install PROJ. The PROJ website contains [details several methods](https://proj.org/install.html) for installing the library, but you may find that these sources are not up-to-date enough to provide the version that this package targets (see `PROJ_VERSION` in [Dockerfile](/Dockerfile)) - in this case you can either compile from source (ensuring that you're using the correct tag), or use the [official Docker images](https://hub.docker.com/r/osgeo/proj/).
