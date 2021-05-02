@@ -1,13 +1,10 @@
-FROM centos:8
+FROM golang:latest
 
 ARG PROJ_VERSION=6.2.1
 
-ENV GOPATH="/root/go"
+RUN apt-get -y update
 
-ENV PATH="${PATH}:${GOPATH}/bin"
-
-RUN dnf update -y \
-    && dnf install -y git automake which libtool gcc gcc-c++ make sqlite-devel unzip
+RUN apt-get install -y automake libtool sqlite3 libsqlite3-dev unzip
 
 RUN git clone --branch ${PROJ_VERSION} https://github.com/OSGeo/PROJ.git
 
@@ -30,13 +27,8 @@ RUN mkdir -p /usr/local/share/proj; \
 RUN cd PROJ \
     && make check
 
-RUN dnf update -y \
-    && dnf install -y go
-
-RUN go get -u github.com/xlab/c-for-go
-
 WORKDIR /build
 
 ENTRYPOINT rm -rf cproj \
-    && c-for-go proj.yml \
+    && go run -mod=vendor github.com/xlab/c-for-go -ccincl proj.yml \
     && chmod 0444 cproj/*

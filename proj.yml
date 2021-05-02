@@ -7,7 +7,7 @@ GENERATOR:
   Options:
     SafeStrings: true
 PARSER:
-  IncludePaths: ["/usr/lib/gcc/x86_64-redhat-linux/8/include", "/usr/local/include", "/usr/include"]
+  IncludePaths: ["/usr/local/include"]
   SourcesPaths: ["proj.h"]
 TRANSLATOR:
   ConstRules:
