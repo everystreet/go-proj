@@ -1,4 +1,4 @@
-module github.com/everystreet/go-proj/v6
+module github.com/everystreet/go-proj/v8
 
 go 1.13
 

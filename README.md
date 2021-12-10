@@ -6,7 +6,7 @@ Go bindings for PROJ (formerly PROJ.4) - a library for performing conversions be
 
 This project, as Go module, follows semantic versioning. This means that backward-incompatible changes will not be made without a major version upgrade.
 
-This project is also versioned to match the target PROJ version. This means that `v6.*.*` of `go-proj` (the current latest version) targets version `6.*.*` of PROJ. If your project needs to use a different version of PROJ, first check the [releases page](https://github.com/everystreet/go-proj/releases) to see if a previous release of `go-proj` targets that version. Alternatively, you may find that a particular version of `go-proj` works with a non-targeted version of PROJ; for example `v6.*.*` of `go-proj` should still work fine with version `7.0.0` of PROJ.
+This project is also versioned to match the target PROJ version. This means that `v8.*.*` of `go-proj` (the current latest version) targets version `8.*.*` of PROJ. If your project needs to use a different version of PROJ, first check the [releases page](https://github.com/everystreet/go-proj/releases) to see if a previous release of `go-proj` targets that version. Alternatively, you may find that a particular version of `go-proj` works with a non-targeted version of PROJ; for example `v8.*.*` of `go-proj` may still work with later versions of PROJ.
 
 ## Usage
 
@@ -21,13 +21,13 @@ proj --version
 Then `go-proj` can be added to your Go module as usual:
 
 ```bash
-go get -u github.com/everystreet/go-proj/v6
+go get -u github.com/everystreet/go-proj/v8
 ```
 
 `go-proj` consists of two packages - `cproj` contains raw Go bindings to the PROJ library, and `proj` consists of a more idiomatic Go wrapper that doesn't require manual memory deallocation. The latter package, `proj` should be used where possible by adding the following `import` line:
 
 ```go
-import "github.com/everystreet/go-proj/v6/proj"
+import "github.com/everystreet/go-proj/v8/proj"
 ```
 
 ## Examples

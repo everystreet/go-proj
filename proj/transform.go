@@ -3,7 +3,7 @@ package proj
 import (
 	"fmt"
 
-	"github.com/everystreet/go-proj/v6/cproj"
+	"github.com/everystreet/go-proj/v8/cproj"
 )
 
 // Projection context.

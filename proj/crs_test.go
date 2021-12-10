@@ -3,7 +3,7 @@ package proj_test
 import (
 	"testing"
 
-	"github.com/everystreet/go-proj/v6/proj"
+	"github.com/everystreet/go-proj/v8/proj"
 	"github.com/golang/geo/s2"
 	"github.com/stretchr/testify/require"
 )
