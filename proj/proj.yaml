@@ -15,7 +15,6 @@ TRANSLATOR:
     enum: eval
   Rules:
     type:
-      - {action: accept, from: "^PROJ_"}
       - {action: accept, from: "^PJ$"}
       - {action: accept, from: "^PJ_AREA$"}
       - {action: accept, from: "^PJ_CONTEXT$"}
