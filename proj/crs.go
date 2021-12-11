@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/everystreet/go-proj/v6/cproj"
+	"github.com/everystreet/go-proj/v8/cproj"
 	"github.com/golang/geo/s2"
 )
 

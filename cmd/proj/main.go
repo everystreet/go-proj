@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/everystreet/go-proj/v6/proj"
+	"github.com/everystreet/go-proj/v8/proj"
 )
 
 func main() {

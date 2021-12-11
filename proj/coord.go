@@ -1,7 +1,7 @@
 package proj
 
 import (
-	"github.com/everystreet/go-proj/v6/cproj"
+	"github.com/everystreet/go-proj/v8/cproj"
 	"github.com/golang/geo/r2"
 	"github.com/golang/geo/r3"
 	"github.com/golang/geo/s1"
